@@ -1,24 +1,16 @@
-// api/schelas.js
+// pages/api/schelas.js
 
-const features = {
-    upgrade: require("./features/upgrade.js"),
-    emotion: require("./features/emotion.js"),
-    discover: require("./features/discover.js"),
-    like: require("./features/like.js"),
-    find: require("./features/find.js"),
-    // Add other features as needed
-};
+import runFeature from './SchelasSpotify/SchelasSpotify';
 
-async function runFeature(feature) {
-    try {
-        if (features[feature]) {
-            await features[feature]();
-        } else {
-            console.log(`> Feature '${feature}' is not implemented yet.`);
-        }
-    } catch (error) {
-        console.error(`> Error running feature '${feature}':`, error);
+export default async function handler(req, res) {
+    const { feature, access_token, refresh_token, value, option, quantity, bpm } = req.body;
+
+    if (!feature) {
+        res.status(400).json({ error: 'Feature not specified in the request body.' });
+        return;
     }
-}
 
-module.exports = runFeature;
+    let returns = await runFeature(feature, access_token, refresh_token, value, option, quantity, bpm);
+
+    res.status(200).json({ message: 'Playlist generated successfully! Enjoy', data: returns });
+}
