@@ -33,7 +33,7 @@ const fetchSpotifyTokens = async (code) => {
     }
 };
 
-const fetchSpotifyUserName = async (accessToken) => {
+const fetchSpotifyUserData = async (accessToken) => {
     // Make a request to Spotify API's /me endpoint to get user details
     const response = await fetch('https://api.spotify.com/v1/me', {
         headers: {
@@ -43,7 +43,7 @@ const fetchSpotifyUserName = async (accessToken) => {
 
     if (response.ok) {
         const userData = await response.json();
-        return userData.display_name;
+        return userData;
     } else {
         console.error('Failed to fetch user data from Spotify API:', response.status, response.statusText);
         return null;
@@ -68,10 +68,11 @@ const CallbackPage = () => {
                 localStorage.setItem('spotifyRefreshToken', encryptedRefreshToken);
 
                 // Fetch the user's name using the access token
-                const userName = await fetchSpotifyUserName(tokens.access_token);
+                const user = await fetchSpotifyUserData(tokens.access_token);
 
                 // Save the user's name
-                localStorage.setItem('spotifyUserName', userName);
+                localStorage.setItem('spotifyUserName', user.display_name);
+                localStorage.setItem('spotifyUserImage', user.images[0]?.url);
 
                 // Redirect the user back to the app's index page
                 router.push('/');

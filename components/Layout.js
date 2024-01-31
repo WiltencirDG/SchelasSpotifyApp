@@ -1,16 +1,15 @@
 // components/Layout.js
 
 import React from 'react';
+import Header from './Header'
 
 const Layout = ({ children }) => {
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col items-center justify-center">
+    <div className="bg-purple text-white min-h-screen flex flex-col">
       {/* Global Header with logo */}
-      <header className="bg-white p-4 text-center mb-8">
-        <img src="/logo.png" alt="Schelas for Spotify" className="max-w-40 mx-auto" />
-      </header>
+      <Header />
       {/* Content */}
-      <div className="bg-black rounded-lg p-6 w-full max-w-md">{children}</div>
+      <div className="bg-purple rounded-lg p-6 w-full flex flex-col items-center justify-center">{children}</div>
     </div>
   );
 };

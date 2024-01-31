@@ -1,17 +1,21 @@
 // components/SpotifyLoginButton.js
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+
 
 const SpotifyLoginButton = () => {
-    const router = useRouter();
+
     const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
     const redirectUri = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
     const [message, setMessage] = useState('Authenticate with Spotify')
+    const [logged, setLogged] = useState(false)
+    const [profile, setProfile] = useState('')
 
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage.getItem('spotifyUserName') != null) {
-            setMessage(`Welcome, ${localStorage.getItem('spotifyUserName')}`)
+            setMessage(`${localStorage.getItem('spotifyUserName')}`)
+            setProfile(localStorage.getItem('spotifyUserImage'))
+            setLogged(true)
         }
     }, [])
 
@@ -44,10 +48,13 @@ const SpotifyLoginButton = () => {
     return (
         <button
             onClick={handleSpotifyAuth}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-green active:bg-green-800"
+            className="bg-green hover:bg-green text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-green active:bg-green flex flex-row items-center"
         >
+            {(logged &&
+                <img className="rounded-full mr-4" src={profile} width="32"></img>
+            )}
             {message}
-        </button>
+        </button >
     );
 };
 

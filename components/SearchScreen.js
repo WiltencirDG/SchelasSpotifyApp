@@ -121,13 +121,13 @@ const SearchScreen = () => {
 
     return (
         (logged &&
-            <div className="flex flex-col items-center">
-                <Tabs onSelect={(index) => setSelectedTab(index)}>
-                    <TabList className="flex bg-black p-4 rounded-lg mb-4">
-                        <Tab className="cursor-pointer p-2 bg-green rounded-md">Artists</Tab>
-                        <Tab className="cursor-pointer p-2 bg-green rounded-md">Genre</Tab>
-                        <Tab className="cursor-pointer p-2 bg-green rounded-md">Current</Tab>
-                        <Tab className="cursor-pointer p-2 bg-green rounded-md">BPM</Tab>
+            <div className="flex flex-col items-center w-full">
+                <Tabs onSelect={(index) => { setSelectedTab(index); setDescription(''); setBpm('') }}>
+                    <TabList className="flex bg-purple p-4 rounded-lg mb-4">
+                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">Artists</Tab>
+                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">Genre</Tab>
+                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">Current</Tab>
+                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">BPM</Tab>
                     </TabList>
 
                     {/* Artists Tab */}
@@ -150,7 +150,7 @@ const SearchScreen = () => {
                             className="mb-4 w-full p-2 rounded-md text-black"
                             value={description.split(',')}
                             style={{ height: '150px' }}
-                            onChange={(e) => setDescription(Array.from(e.target.selectedOptions?.slice(0, 5), option => option.value).join(','))}
+                            onChange={(e) => setDescription(Array.from(e.target.selectedOptions, option => option.value).slice(0, 5).join(','))}
                         >
                             {genres.map((genre) => (
                                 <option key={genre} value={genre}>
@@ -185,16 +185,18 @@ const SearchScreen = () => {
                 </Tabs>
 
                 {/* Number of Musics field */}
+
                 <label className="block mb-2 text-white">Number of Musics:</label>
                 <input
                     type="number"
                     value={numberOfMusics}
                     onChange={(e) => setNumberOfMusics(e.target.value)}
-                    className="mb-4 w-full p-2 rounded-md text-black"
+                    className="mb-4 p-2 rounded-md text-black"
                 />
 
+
                 {/* Button for generating playlist */}
-                <div className="bg-green text-white p-2 rounded-md cursor-pointer">
+                <div className="bg-green text-white p-2 rounded-md cursor-pointer hover:bg-black">
                     <Button
                         text='Generate My Playlist'
                         loading={showLoader}

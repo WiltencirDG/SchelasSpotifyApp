@@ -17,6 +17,7 @@ const config: Config = {
         green: '#1DB954', // Your custom green color
         white: '#FFFFFF', // Your custom white color
         black: '#191414', // Your custom black color
+        purple: '#282155', // Your custom black color
         // You can add more custom colors as needed
       },
     },
