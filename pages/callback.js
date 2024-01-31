@@ -11,7 +11,7 @@ const encryptToken = (token) => {
 const fetchSpotifyTokens = async (code) => {
     if (!code) return
     var clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-    var clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+    var clientSecret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
     var redirectUri = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
     var basicAuth = Buffer.from(clientId + ':' + clientSecret).toString('base64')
 
@@ -55,13 +55,9 @@ const CallbackPage = () => {
 
     useEffect(() => {
         const { code } = router.query;
-        console.log('query', code)
+
         const handleCallback = async (code) => {
-            console.log('handle', code)
-
             const tokens = await fetchSpotifyTokens(code)
-            console.log('afterrr', tokens)
-
             if (tokens?.access_token) {
                 // Encrypt the access token before storage
                 const encryptedToken = encryptToken(tokens.access_token);

@@ -10,7 +10,6 @@ const features = {
 };
 
 async function runFeature(feature) {
-    console.log('called')
     try {
         if (features[feature]) {
             await features[feature]();
