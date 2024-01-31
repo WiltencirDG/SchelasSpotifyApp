@@ -101,7 +101,7 @@ const SearchScreen = () => {
     const getTabOption = (tabIndex) => {
         switch (tabIndex) {
             case 0:
-                return 'artists';
+                return 'artist';
             case 1:
                 return 'genre';
             case 2:
