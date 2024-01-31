@@ -1,11 +1,11 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
+import { MouseEventHandler } from 'react'
 import { RiLoaderLine as Loader } from 'react-icons/ri'
 
 interface ButtonProps {
     text: string | JSX.Element
     loading: boolean
     disabled: boolean
-    onClick: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+    onClick: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
 const Button = ({ text, loading = false, disabled, onClick }: ButtonProps) => {
