@@ -4,10 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
+import { Button } from '../components'
+
 const SearchScreen = () => {
     const [description, setDescription] = useState('');
     const [bpm, setBpm] = useState('');
     const [logged, setLogged] = useState(false);
+    const [showLoader, setShowLoader] = useState(false);
     const [selectedTab, setSelectedTab] = useState(0); // Track the selected tab
     const [numberOfMusics, setNumberOfMusics] = useState(20); // New state for the number of musics
     const [genres, setGenres] = useState([]); // New state for the genres
@@ -56,6 +59,7 @@ const SearchScreen = () => {
     };
 
     const generatePlaylist = async () => {
+        setShowLoader(true)
         try {
             // Fetch the access token from localStorage
             const accessToken = localStorage.getItem('spotifyAccessToken');
@@ -93,6 +97,8 @@ const SearchScreen = () => {
             alert(`${JSON.stringify(data.message)}`);
         } catch (error) {
             console.error('Error calling serverless function:', error);
+        } finally {
+            setShowLoader(false)
         }
     };
 
@@ -188,12 +194,14 @@ const SearchScreen = () => {
                 />
 
                 {/* Button for generating playlist */}
-                <button
-                    className="bg-green text-white p-2 rounded-md cursor-pointer"
-                    onClick={generatePlaylist}
-                >
-                    Generate My Playlist
-                </button>
+                <div className="bg-green text-white p-2 rounded-md cursor-pointer">
+                    <Button
+                        text='Generate My Playlist'
+                        loading={showLoader}
+                        disabled={showLoader}
+                        onClick={generatePlaylist}
+                    ></Button>
+                </div>
             </div >
         )
     );
