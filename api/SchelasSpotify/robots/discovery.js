@@ -6,9 +6,9 @@ let cacheProvider = require('../SchelasCache')
 async function robot(pGenre, value, quantity, bpm) {
   const { access_token, refresh_token } = cacheProvider.instance().get('tokens');
   const spotify = new SpotifyWebApi({
-    clientId: process.env.SPOTIFY_CLIENT_ID,
+    clientId: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    redirectUri: process.env.SPOTIFY_REDIRECT_URI,
+    redirectUri: process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI,
   });
 
   await spotify.setAccessToken(access_token);

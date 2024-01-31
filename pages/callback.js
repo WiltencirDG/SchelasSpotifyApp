@@ -10,9 +10,9 @@ const encryptToken = (token) => {
 
 const fetchSpotifyTokens = async (code) => {
     if (!code) return
-    var clientId = process.env.SPOTIFY_CLIENT_ID;
+    var clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
     var clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-    var redirectUri = process.env.SPOTIFY_REDIRECT_URI;
+    var redirectUri = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
     var basicAuth = Buffer.from(clientId + ':' + clientSecret).toString('base64')
 
     const response = await fetch(`https://accounts.spotify.com/api/token?` +

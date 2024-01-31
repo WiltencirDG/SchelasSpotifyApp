@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 
 const SpotifyLoginButton = () => {
     const router = useRouter();
-    const clientId = process.env.SPOTIFY_CLIENT_ID;
-    const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
+    const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+    const redirectUri = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
     const [message, setMessage] = useState('Authenticate with Spotify')
 
     useEffect(() => {
