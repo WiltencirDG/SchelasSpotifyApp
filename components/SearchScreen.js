@@ -155,7 +155,7 @@ const SearchScreen = () => {
                             style={{ height: '150px' }}
                             onChange={(e) => setDescription(Array.from(e.target.selectedOptions, option => option.value).slice(0, 5).join(','))}
                         >
-                            {genres.map((genre) => (
+                            {genres?.map((genre) => (
                                 <option key={genre} value={genre}>
                                     {genre}
                                 </option>
