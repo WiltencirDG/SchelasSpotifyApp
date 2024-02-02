@@ -9,14 +9,14 @@ const robots = {
 };
 
 async function discover(option, value, quantity, bpm) {
-
+  var songs = []
   try {
-    await robots.discovery(value, option, quantity, bpm);
+    songs = await robots.discovery(value, option, quantity, bpm);
   } catch (e) {
     //console.log(e);
     if (e.statusCode === 401) {
       await robots.reAuthenticate();
-      await robots.discovery(value, option, quantity, bpm);
+      songs = await robots.discovery(value, option, quantity, bpm);
     }
   }
 
@@ -30,6 +30,8 @@ async function discover(option, value, quantity, bpm) {
       await robots.play("discover");
     }
   }
+
+  return songs;
 }
 
 module.exports = discover;

@@ -35,6 +35,7 @@ async function robot(pGenre, value, quantity, bpm) {
                   id: track.id,
                   artist: track.artists[0].name,
                   song: track.name,
+                  image: track.album.images[0].url,
                   playlist: "discover",
                 });
               });
@@ -56,6 +57,7 @@ async function robot(pGenre, value, quantity, bpm) {
                     id: track.id,
                     artist: track.artists[0].name,
                     song: track.name,
+                    image: track.album.images[0].url,
                     playlist: "discover",
                   });
                 });
@@ -79,6 +81,7 @@ async function robot(pGenre, value, quantity, bpm) {
               id: track.id,
               artist: track.artists[0].name,
               song: track.name,
+              image: track.album.images[0].url,
               playlist: "discover",
             });
           });
@@ -116,6 +119,7 @@ async function robot(pGenre, value, quantity, bpm) {
               id: track.id,
               artist: track.artists[0].name,
               song: track.name,
+              image: track.album.images[0].url,
               playlist: "discover",
             });
           });
@@ -141,6 +145,7 @@ async function robot(pGenre, value, quantity, bpm) {
                 id: track.id,
                 artist: track.artists[0].name,
                 song: track.name,
+                image: track.album.images[0].url,
                 playlist: "discover",
               });
             });
@@ -151,6 +156,8 @@ async function robot(pGenre, value, quantity, bpm) {
       })
       .catch((e) => console.log(e));
   }
+
+  return newSongs
 }
 
 module.exports = robot;

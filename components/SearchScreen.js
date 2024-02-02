@@ -5,11 +5,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 import { Button } from '../components'
+import MusicCard from './MusicCard';
 
 const SearchScreen = () => {
     const [description, setDescription] = useState('');
     const [bpm, setBpm] = useState('');
     const [logged, setLogged] = useState(false);
+    const [songs, setSongs] = useState([]);
     const [showLoader, setShowLoader] = useState(false);
     const [selectedTab, setSelectedTab] = useState(0); // Track the selected tab
     const [numberOfMusics, setNumberOfMusics] = useState(20); // New state for the number of musics
@@ -92,9 +94,10 @@ const SearchScreen = () => {
             });
 
             const data = await response.json();
-
+            // Fill in the list of songs
+            setSongs(data.data)
             // Replace this with your actual handling of the response data
-            alert(`${JSON.stringify(data.message)}`);
+            // alert(`${JSON.stringify(data.message)}`);
         } catch (error) {
             console.error('Error calling serverless function:', error);
         } finally {
@@ -204,6 +207,15 @@ const SearchScreen = () => {
                         onClick={generatePlaylist}
                     ></Button>
                 </div>
+
+                {/* {(songs.length > 0 && */}
+                <section className="mt-10 w-3/5">
+                    <h2 className="text-2xl font-bold mb-5">Sua Playlist ({songs.length} músicas):</h2>
+                    {songs.map((music) => (
+                        <MusicCard key={music.id} music={music} />
+                    ))}
+                </section>
+                {/* )} */}
             </div >
         )
     );

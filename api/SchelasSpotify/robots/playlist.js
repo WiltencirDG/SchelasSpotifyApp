@@ -128,7 +128,7 @@ async function addToPlaylist(pPlaylist) {
 				await spotify.createPlaylist(myPlaylist).then(async (data) => {
 					let playlistId = data.body.id.toString();
 					let image = fs.readFileSync(
-						"api/SchelasSpotify/resources/covers/" + playlistName + ".jpg",
+						"resources/covers/" + playlistName + ".jpg",
 						{
 							encoding: "base64",
 						}
@@ -163,7 +163,7 @@ async function addToPlaylist(pPlaylist) {
 							.createPlaylist(myPlaylist)
 							.then(async (data) => {
 								let playlistId = data.body.id.toString();
-								let image = fs.readFileSync("api/SchelasSpotify/resources/covers/" + playlistName + ".jpg",
+								let image = fs.readFileSync("resources/covers/" + playlistName + ".jpg",
 									{
 										encoding: "base64",
 									}
