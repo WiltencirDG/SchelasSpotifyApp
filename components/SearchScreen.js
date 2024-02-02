@@ -131,10 +131,10 @@ const SearchScreen = () => {
                 </div>
                 <Tabs onSelect={(index) => { setSelectedTab(index); setDescription(''); setBpm('') }} >
                     <TabList className="flex p-4 rounded-lg mb-4 text-playlist">
-                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">Artistas</Tab>
-                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">Gêneros</Tab>
-                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">Música Atual</Tab>
-                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">BPM</Tab>
+                        <Tab className="cursor-pointer p-2 bg-fields text-white hover:bg-hover rounded-md">Artistas</Tab>
+                        <Tab className="cursor-pointer p-2 bg-fields text-white hover:bg-hover rounded-md">Gêneros</Tab>
+                        <Tab className="cursor-pointer p-2 bg-fields text-white hover:bg-hover rounded-md">Música Atual</Tab>
+                        <Tab className="cursor-pointer p-2 bg-fields text-white hover:bg-hover rounded-md">BPM</Tab>
                     </TabList>
 
                     {/* Artists Tab */}
@@ -144,7 +144,7 @@ const SearchScreen = () => {
                             type="text"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            className="mb-4 w-full p-2 rounded-md text-black"
+                            className="mb-4 w-full p-2 rounded-md text-white bg-fields"
                         />
                     </TabPanel>
 
@@ -153,8 +153,7 @@ const SearchScreen = () => {
                         <label className="block mb-2 text-playlist">Escolha os Gêneros:</label>
                         <select
                             multiple
-
-                            className="mb-4 w-full p-2 rounded-md text-black"
+                            className="mb-4 w-full p-2 rounded-md text-white bg-fields"
                             value={description.split(',')}
                             style={{ height: '150px' }}
                             onChange={(e) => setDescription(Array.from(e.target.selectedOptions, option => option.value).slice(0, 5).join(','))}
@@ -179,14 +178,14 @@ const SearchScreen = () => {
                             type="number"
                             value={bpm}
                             onChange={(e) => setBpm(e.target.value)}
-                            className="mb-4 w-full p-2 rounded-md text-black"
+                            className="mb-4 w-full p-2 rounded-md text-white bg-fields"
                         />
                         <label className="block mb-2 text-playlist">Digite os Artistas:</label>
                         <input
                             type="text"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            className="mb-4 w-full p-2 rounded-md text-black"
+                            className="mb-4 w-full p-2 rounded-md text-white bg-fields"
                         />
                     </TabPanel>
 
@@ -197,11 +196,11 @@ const SearchScreen = () => {
                             type="number"
                             value={numberOfMusics}
                             onChange={(e) => setNumberOfMusics(e.target.value)}
-                            className="mb-4 p-2 w-full rounded-md text-black"
+                            className="mb-4 p-2 w-full rounded-md text-white bg-fields"
                         />
                     </div>
                     {/* Button for generating playlist */}
-                    <div className="mt-4 bg-buttons text-playlist p-2 rounded-md cursor-pointer hover:bg-hover w-full text-center">
+                    <div className="mt-4 bg-buttons text-white p-2 rounded-md cursor-pointer hover:bg-hover w-full text-center">
                         <Button
                             text='Gerar Playlist'
                             loading={showLoader}
