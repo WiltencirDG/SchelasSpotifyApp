@@ -54,9 +54,17 @@ const CallbackPage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const { code } = router.query;
+        const { code, error } = router.query;
 
         const handleCallback = async (code) => {
+            if (error) {
+                localStorage.removeItem('spotifyAccessToken');
+                localStorage.removeItem('spotifyRefreshToken');
+                localStorage.removeItem('spotifyUserName');
+                localStorage.removeItem('spotifyUserImage');
+                router.push('/');
+                return
+            }
             const tokens = await fetchSpotifyTokens(code)
             if (tokens?.access_token) {
                 // Encrypt the access token before storage
@@ -82,7 +90,24 @@ const CallbackPage = () => {
         handleCallback(code);
     }, [router.query]);
 
-    return <div>Callback Page</div>;
+    return (
+        <div className="min-h-screen bg-purple text-white">
+            <header className="p-5 text-center bg-black bg-opacity-60">
+                <h1 className="text-4xl font-bold text-green">Bem-vindo de volta!</h1>
+            </header>
+
+            <main className="p-5">
+                <section>
+                    <h2 className="text-2xl font-bold mb-5">Você fez login com sucesso.</h2>
+                    <p className="text-lg">Agora você pode continuar a usar o aplicativo.</p>
+                </section>
+            </main>
+
+            <footer className="p-5 text-center bg-black bg-opacity-60 text-gray-600">
+                <p>Feito com ❤️ @ Schelas</p>
+            </footer>
+        </div>
+    );
 };
 
 export default CallbackPage;

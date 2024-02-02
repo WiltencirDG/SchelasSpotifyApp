@@ -29,7 +29,7 @@ const SpotifyLoginButton = () => {
             if (existingAccessToken && existingUserName) {
                 // User is already authenticated, handle accordingly
                 console.log('User is already authenticated. Welcome back,', existingUserName);
-                return;
+                //return;
             }
         }
 
@@ -38,6 +38,7 @@ const SpotifyLoginButton = () => {
             `client_id=${clientId}` +
             `&redirect_uri=${encodeURIComponent(redirectUri)}` +
             `&response_type=code` +
+            `&show_dialog=true` +
             `&scope=user-read-private user-read-email user-follow-read user-library-read user-top-read user-read-playback-state user-read-currently-playing user-follow-modify user-library-modify playlist-modify-public playlist-modify-private user-modify-playback-state ugc-image-upload streaming`; // Add additional scopes as needed
 
         // Redirect the user to the Spotify authorization page
