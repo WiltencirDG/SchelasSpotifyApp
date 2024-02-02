@@ -213,7 +213,7 @@ const SearchScreen = () => {
 
 
                 {(songs.length > 0 &&
-                    <section className="mt-10 w-3/5">
+                    <section className="mt-10 w-full md:w-4/5">
                         <h2 className="text-2xl font-bold mb-5">Sua playlist gerada ({songs.length} músicas):</h2>
                         {songs.map((music) => (
                             <MusicCard key={music.id} music={music} />
