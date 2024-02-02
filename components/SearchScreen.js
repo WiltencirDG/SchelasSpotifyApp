@@ -6,6 +6,7 @@ import 'react-tabs/style/react-tabs.css';
 
 import { Button } from '../components'
 import MusicCard from './MusicCard';
+import IconS4S from './IconS4S';
 
 const SearchScreen = () => {
     const [description, setDescription] = useState('');
@@ -125,17 +126,20 @@ const SearchScreen = () => {
     return (
         (logged &&
             <div className="flex flex-col items-center w-full">
-                <Tabs onSelect={(index) => { setSelectedTab(index); setDescription(''); setBpm('') }}>
-                    <TabList className="flex bg-purple p-4 rounded-lg mb-4">
-                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">Artists</Tab>
-                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">Genre</Tab>
-                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">Current</Tab>
-                        <Tab className="cursor-pointer p-2 bg-green hover:bg-black rounded-md">BPM</Tab>
+                <div className='mb-4'>
+                    <IconS4S color="playlist" height={150}></IconS4S>
+                </div>
+                <Tabs onSelect={(index) => { setSelectedTab(index); setDescription(''); setBpm('') }} >
+                    <TabList className="flex p-4 rounded-lg mb-4 text-playlist">
+                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">Artistas</Tab>
+                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">Gêneros</Tab>
+                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">Música Atual</Tab>
+                        <Tab className="cursor-pointer p-2 hover:bg-hover rounded-md">BPM</Tab>
                     </TabList>
 
                     {/* Artists Tab */}
                     <TabPanel>
-                        <label className="block mb-2 text-white">Type in the Artists:</label>
+                        <label className="block mb-2 text-playlist">Digite os Artistas:</label>
                         <input
                             type="text"
                             value={description}
@@ -146,7 +150,7 @@ const SearchScreen = () => {
 
                     {/* Genre Tab */}
                     <TabPanel>
-                        <label className="block mb-2 text-white">Choose a Genre:</label>
+                        <label className="block mb-2 text-playlist">Escolha os Gêneros:</label>
                         <select
                             multiple
 
@@ -170,14 +174,14 @@ const SearchScreen = () => {
 
                     {/* BPM Tab */}
                     <TabPanel>
-                        <label className="block mb-2 text-white">BPM:</label>
+                        <label className="block mb-2 text-playlist">BPM:</label>
                         <input
                             type="number"
                             value={bpm}
                             onChange={(e) => setBpm(e.target.value)}
                             className="mb-4 w-full p-2 rounded-md text-black"
                         />
-                        <label className="block mb-2 text-white">Type in the Artists:</label>
+                        <label className="block mb-2 text-playlist">Digite os Artistas:</label>
                         <input
                             type="text"
                             value={description}
@@ -185,37 +189,38 @@ const SearchScreen = () => {
                             className="mb-4 w-full p-2 rounded-md text-black"
                         />
                     </TabPanel>
+
+                    {/* Number of Musics field */}
+                    <div className="w-full">
+                        <label className="block mb-2 text-playlist">Nº de músicas:</label>
+                        <input
+                            type="number"
+                            value={numberOfMusics}
+                            onChange={(e) => setNumberOfMusics(e.target.value)}
+                            className="mb-4 p-2 w-full rounded-md text-black"
+                        />
+                    </div>
+                    {/* Button for generating playlist */}
+                    <div className="mt-4 bg-buttons text-playlist p-2 rounded-md cursor-pointer hover:bg-hover w-full text-center">
+                        <Button
+                            text='Gerar Playlist'
+                            loading={showLoader}
+                            disabled={showLoader}
+                            onClick={generatePlaylist}
+                        ></Button>
+                    </div>
                 </Tabs>
 
-                {/* Number of Musics field */}
-
-                <label className="block mb-2 text-white">Number of Musics:</label>
-                <input
-                    type="number"
-                    value={numberOfMusics}
-                    onChange={(e) => setNumberOfMusics(e.target.value)}
-                    className="mb-4 p-2 rounded-md text-black"
-                />
 
 
-                {/* Button for generating playlist */}
-                <div className="bg-green text-white p-2 rounded-md cursor-pointer hover:bg-black">
-                    <Button
-                        text='Generate My Playlist'
-                        loading={showLoader}
-                        disabled={showLoader}
-                        onClick={generatePlaylist}
-                    ></Button>
-                </div>
-
-                {/* {(songs.length > 0 && */}
-                <section className="mt-10 w-3/5">
-                    <h2 className="text-2xl font-bold mb-5">Sua Playlist ({songs.length} músicas):</h2>
-                    {songs.map((music) => (
-                        <MusicCard key={music.id} music={music} />
-                    ))}
-                </section>
-                {/* )} */}
+                {(songs.length > 0 &&
+                    <section className="mt-10 w-3/5">
+                        <h2 className="text-2xl font-bold mb-5">Sua playlist gerada ({songs.length} músicas):</h2>
+                        {songs.map((music) => (
+                            <MusicCard key={music.id} music={music} />
+                        ))}
+                    </section>
+                )}
             </div >
         )
     );
