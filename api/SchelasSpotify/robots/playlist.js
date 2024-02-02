@@ -127,12 +127,12 @@ async function addToPlaylist(pPlaylist) {
 				console.log("> Creating " + playlistName + " playlist...");
 				await spotify.createPlaylist(myPlaylist).then(async (data) => {
 					let playlistId = data.body.id.toString();
-					let image = fs.readFileSync(
-						"resources/covers/" + playlistName + ".jpg",
-						{
-							encoding: "base64",
-						}
-					);
+					const response = await fetch('https://schelas-spotify.vercel.app/resources/covers/' + playlistName + '.jpg');
+					const blob = await response.arrayBuffer();
+
+					let image = Buffer.from(
+						blob,
+					).toString('base64')
 					await fetch(
 						`https://api.spotify.com/v1/playlists/${playlistId}/images`,
 						{
@@ -163,11 +163,13 @@ async function addToPlaylist(pPlaylist) {
 							.createPlaylist(myPlaylist)
 							.then(async (data) => {
 								let playlistId = data.body.id.toString();
-								let image = fs.readFileSync("resources/covers/" + playlistName + ".jpg",
-									{
-										encoding: "base64",
-									}
-								);
+
+								const response = await fetch('https://schelas-spotify.vercel.app/resources/covers/' + playlistName + '.jpg');
+								const blob = await response.arrayBuffer();
+
+								let image = Buffer.from(
+									blob,
+								).toString('base64')
 
 								await fetch(
 									`https://api.spotify.com/v1/playlists/${playlistId}/images`,
