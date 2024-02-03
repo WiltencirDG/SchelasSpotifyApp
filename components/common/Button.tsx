@@ -10,7 +10,7 @@ interface ButtonProps {
 
 const Button = ({ text, loading = false, disabled, onClick }: ButtonProps) => {
     return (
-        <button className="button-default py-2.5 font-open-sans text-base font-semibold submit-btn" disabled={disabled} onClick={onClick}>
+        <button className="mt-4 text-white p-2 py-4 rounded-md cursor-pointer hover:bg-hover w-full text-center button-default bg-buttons font-semibold submit-btn" disabled={disabled} onClick={onClick}>
             {!loading ? text : <Loader className="spinner" />}
         </button>
     )

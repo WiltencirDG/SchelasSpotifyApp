@@ -26,6 +26,7 @@ const SearchScreen = () => {
 
     useEffect(() => {
         // Fetch genres from the API when the component mounts
+        if (genres.length > 0) return;
         fetchGenres();
     }, logged);
 
@@ -200,14 +201,14 @@ const SearchScreen = () => {
                         />
                     </div>
                     {/* Button for generating playlist */}
-                    <div className="mt-4 bg-buttons text-white p-2 rounded-md cursor-pointer hover:bg-hover w-full text-center">
-                        <Button
-                            text='Gerar Playlist'
-                            loading={showLoader}
-                            disabled={showLoader}
-                            onClick={generatePlaylist}
-                        ></Button>
-                    </div>
+
+                    <Button
+                        text='Gerar Playlist'
+                        loading={showLoader}
+                        disabled={showLoader}
+                        onClick={generatePlaylist}
+                    ></Button>
+
                 </Tabs>
 
 
