@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/themes": "^2.0.3",
+    "axios": "^1.6.7",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.321.0",
     "next": "14.0.4",
     "node-cache": "^5.1.2",
     "node-fetch": "^3.3.2",
@@ -16,6 +20,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
+    "react-select": "^5.8.0",
     "react-tabs": "^6.0.2",
     "spotify-web-api-node": "^5.0.2"
   },

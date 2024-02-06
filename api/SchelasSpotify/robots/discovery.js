@@ -43,27 +43,46 @@ async function robot(pGenre, value, quantity, bpm) {
         })
     } else if (pGenre == "artist" || pGenre == "ARTIST") {
       let artists = value.split(',');
-      for (let pArtist of artists) {
-        let artist = pArtist.trim();
-        console.log("> Getting top tracks for " + artist + "...");
-        await spotify
-          .searchArtists(artist, { limit: 1, offset: 0 })
-          .then(async (data) => {
-            await spotify
-              .getArtistTopTracks(data.body.artists.items[0].id, "US")
-              .then((tracks) => {
-                tracks.body.tracks.forEach((track) => {
-                  newSongs.push({
-                    id: track.id,
-                    artist: track.artists[0].name,
-                    song: track.name,
-                    image: track.album.images[0].url,
-                    playlist: "discover",
-                  });
-                });
-              });
+      //let artistsSongs = []
+      // for (let pArtist of artists) {
+      //   let artist = pArtist.trim();
+      //   console.log("> Getting top tracks for " + artist + "...");
+      //   // await spotify
+      //   //   .searchArtists(artist, { limit: 1, offset: 0 })
+      //   //   .then(async (data) => { artist = data.body.artists.items[0].id
+      //     await spotify
+      //       .getArtistTopTracks(artist, "BR")
+      //       .then((tracks) => {
+      //         tracks.body.tracks.forEach((track) => {
+      //           artistsSongs.push({
+      //             id: track.id,
+      //             artist: track.artists[0].name,
+      //             song: track.name,
+      //             image: track.album.images[0].url,
+      //             playlist: "discover",
+      //           });
+      //         });
+      //       });
+      //     // });
+      // }
+      // seed_tracks: artistsSongs.map(item => item.id).sort(() => (Math.random() > .5) ? 1 : -1).slice(0,5),
+      await spotify
+      .getRecommendations({
+        seed_artists: artists.join(','),
+        limit: quantity || 20,
+        offset: 0,
+      })
+      .then((data) => {
+        data.body.tracks.forEach((track) => {
+          newSongs.push({
+            id: track.id,
+            artist: track.artists[0].name,
+            song: track.name,
+            image: track.album.images[0].url,
+            playlist: "discover",
           });
-      }
+        });
+      }).catch(e => console.log(e))
     } else if (pGenre == "genre" || pGenre == "GENRE") {
       let genre = value;
       console.log(
@@ -89,16 +108,16 @@ async function robot(pGenre, value, quantity, bpm) {
 
     } else if (pGenre == "bpm" || pGenre == "BPM") {
       let artists = value.split(',');
-      let seedArtist = []
-      for (let pArtist of artists) {
-        let artist = pArtist.trim();
-        console.log("> Getting id for " + artist + "...");
-        await spotify
-          .searchArtists(artist, { limit: 1, offset: 0 })
-          .then(async (data) => {
-            seedArtist.push(data.body.artists.items[0].id)
-          });
-      }
+      // let seedArtist = []
+      // for (let pArtist of artists) {
+      //   let artist = pArtist.trim();
+      //   console.log("> Getting id for " + artist + "...");
+      //   await spotify
+      //     .searchArtists(artist, { limit: 1, offset: 0 })
+      //     .then(async (data) => {
+      //       seedArtist.push(data.body.artists.items[0].id)
+      //     });
+      // }
 
       let tempo = bpm;
       console.log(
@@ -107,7 +126,7 @@ async function robot(pGenre, value, quantity, bpm) {
 
       await spotify
         .getRecommendations({
-          seed_artists: seedArtist.join(','),
+          seed_artists: artists.join(','),
           target_tempo: tempo,
           min_tempo: tempo - 5,
           limit: quantity || 35,

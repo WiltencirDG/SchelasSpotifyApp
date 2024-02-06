@@ -1,7 +1,8 @@
 // pages/callback.js
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Header from '../components/Header';
 
 const encryptToken = (token) => {
     // Implement a secure encryption mechanism
@@ -91,19 +92,17 @@ const CallbackPage = () => {
     }, [router.query]);
 
     return (
-        <div className="min-h-screen bg-purple text-white">
-            <header className="p-5 text-center bg-black bg-opacity-60">
-                <h1 className="text-4xl font-bold text-green">Bem-vindo de volta!</h1>
-            </header>
-
-            <main className="p-5">
+        <div className="bg-primary text-playlist flex flex-col h-full min-h-screen">
+            <Header />
+            
+            <main className="flex flex-1 p-5 gap-2 items-center justify-center text-center">
                 <section>
                     <h2 className="text-2xl font-bold mb-5">Você fez login com sucesso.</h2>
                     <p className="text-lg">Agora você pode continuar a usar o aplicativo.</p>
                 </section>
             </main>
 
-            <footer className="p-5 text-center bg-black bg-opacity-60 text-gray-600">
+            <footer className="flex-2 p-5 text-center bg-black bg-opacity-60 text-zinc-400">
                 <p>Feito com ❤️ @ Schelas</p>
             </footer>
         </div>

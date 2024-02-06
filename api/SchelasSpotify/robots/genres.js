@@ -1,6 +1,4 @@
 const SpotifyWebApi = require("spotify-web-api-node");
-// const state = require("../robots/state.js");
-
 let cacheProvider = require('../SchelasCache');
 
 async function robot() {

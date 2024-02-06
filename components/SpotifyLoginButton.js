@@ -1,6 +1,7 @@
 // components/SpotifyLoginButton.js
 
-import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 
 const SpotifyLoginButton = () => {
@@ -33,7 +34,7 @@ const SpotifyLoginButton = () => {
             }
         }
 
-        // User needs to authenticate
+        // User needs to authenticate 
         const authUrl = `https://accounts.spotify.com/authorize?` +
             `client_id=${clientId}` +
             `&redirect_uri=${encodeURIComponent(redirectUri)}` +
@@ -49,10 +50,10 @@ const SpotifyLoginButton = () => {
     return (
         <button
             onClick={handleSpotifyAuth}
-            className="bg-green hover:bg-green text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-green active:bg-green flex flex-row items-center"
+            className="bg-primary hover:bg-primary text-white font-bold h-12 mt-4 mr-2 px-4 rounded-full focus:outline-none focus:shadow-outline-green active:bg-primary flex flex-row items-center"
         >
             {(logged &&
-                <img className="rounded-full mr-4" src={profile} width="32"></img>
+                <Image width={32} height={32} alt="Profile picture of the user logged in" className="rounded-full mr-4" src={profile}></Image>
             )}
             {message}
         </button >

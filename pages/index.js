@@ -5,7 +5,6 @@ import SearchScreen from '../components/SearchScreen';
 
 const IndexPage = () => {
 
-
     return (
         <Layout>
             {/* Include your SearchScreen component below */}

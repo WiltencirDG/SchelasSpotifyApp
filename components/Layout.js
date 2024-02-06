@@ -1,15 +1,12 @@
 // components/Layout.js
-
-import React from 'react';
-import Header from './Header'
-
+import Header from './Header';
 const Layout = ({ children }) => {
   return (
-    <div className="bg-background text-white min-h-screen flex flex-col">
+    <div className="bg-primary h-full min-h-screen">
       {/* Global Header with logo */}
       <Header />
       {/* Content */}
-      <div className="bg-background rounded-lg p-6 w-full flex flex-col items-center justify-center">{children}</div>
+      <div className="rounded-lg p-6 w-full flex flex-col items-center justify-center">{children}</div>
     </div>
   );
 };

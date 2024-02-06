@@ -14,16 +14,10 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        green: '#1DB954', // Your custom green color
+        primary: '#1DB954', // Your custom green color
         white: '#FFFFFF', // Your custom white color
         black: '#191414', // Your custom black color
-        purple: '#541DB9', // Your custom purple color
-        accent: '#B9541D', // Your custom accent color
-        background: '#1DB954', // Your custom accent color
-        buttons: '#191414', // Your custom accent color
-        fields: '#191414', // Your custom accent color
         hover: '#454040', // Your custom accent color
-        playlist: '#191414', // Your custom accent color
         // You can add more custom colors as needed
       },
     },

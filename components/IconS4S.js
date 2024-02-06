@@ -1,8 +1,6 @@
-import * as React from "react";
 const IconS4S = ({ props, color, width, height }) => (
   <svg viewBox="0 35 550 400" xmlns="http://www.w3.org/2000/svg" {...props} width={width} height={height} className={`fill-${color}`}>
     <g
-      fillRule="none"
       fontFamily="none"
       fontSize="none"
       fontWeight="none"
