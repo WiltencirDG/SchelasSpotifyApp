@@ -174,14 +174,15 @@ const SearchScreen = () => {
         (logged &&
             <div className="flex flex-col items-center">
                 <div className='flex flex-col items-center w-full mb-4'>
-                    <IconS4S color="playlist" height={150}></IconS4S>
+                    <IconS4S className="fill-black" height={150}></IconS4S>
+                    
                 </div>
                 <Tabs onSelect={(index) => { setSelectedTab(index); setDescription(''); setBpm('') }} >
-                    <TabList className="flex p-4 mb-4 gap-3 w-full">
-                        <Tab className="flex gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><Mic2/> Artistas</Tab>
-                        <Tab className="flex gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><AudioWaveform/> Gêneros</Tab>
-                        <Tab className="flex gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><Music/> Música Atual</Tab>
-                        <Tab className="flex gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><Drum/> BPM</Tab>
+                    <TabList className="flex md:p-4 md:mb-4 md:gap-3 md:w-full">
+                        <Tab className="flex md:gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><Mic2 className='hidden md:block'/> Artistas</Tab>
+                        <Tab className="flex md:gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><AudioWaveform className='hidden md:block'/> Gêneros</Tab>
+                        <Tab className="flex md:gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><Music className='hidden md:block'/> Música Atual</Tab>
+                        <Tab className="flex md:gap-3 cursor-pointer p-3 bg-black text-white hover:bg-hover rounded-md"><Drum className='hidden md:block'/> BPM</Tab>
                     </TabList>
 
                     {/* Artists Tab */}
