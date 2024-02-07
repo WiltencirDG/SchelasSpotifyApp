@@ -54,7 +54,7 @@ const SearchScreen = () => {
         if (typeof window !== 'undefined' && localStorage.getItem('spotifyUserName') != null) {
             setLogged(true)
         }
-    }, [window, localStorage.getItem('spotifyUserName')])
+    }, [typeof window, typeof localStorage])
 
     useEffect(() => {
         // Fetch genres from the API when the component mounts
