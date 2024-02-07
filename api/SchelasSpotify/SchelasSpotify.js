@@ -9,10 +9,13 @@ cacheProvider.start(function (err) {
 const features = {
 	discover: require("./features/discover.js"),
 	genres: require("./features/genre.js"),
+	login: require("./features/login.js"),
+	getLoginUrl: require("./features/getLoginUrl.js"),
+	getArtistByName: require("./features/getArtistByName.js"),
 	// Add other features as needed
 };
 
-async function runFeature(feature, access_token, refresh_token, value, option, quantity, bpm) {
+async function runFeature(feature, value, option, quantity, bpm, code) {
 	cacheProvider
 		.instance()
 		.set('playlistNames', {
@@ -24,15 +27,17 @@ async function runFeature(feature, access_token, refresh_token, value, option, q
 			"discover": "Discovering with Schelas!"
 		})
 
-	cacheProvider
-		.instance()
-		.set('tokens', { access_token, refresh_token })
+	
 
 	try {
-		if (features[feature]) {
-			return await features[feature](value, option, quantity, bpm);
-		} else {
-			console.log(`> Feature '${feature}' is not implemented yet.`);
+		if(feature == 'login'){
+			return await features[feature](code);
+		}else{
+			if (features[feature]) {
+				return await features[feature](value, option, quantity, bpm);
+			} else {
+				console.log(`> Feature '${feature}' is not implemented yet.`);
+			}
 		}
 	} catch (error) {
 		console.error(`> Error running feature '${feature}':`, error);

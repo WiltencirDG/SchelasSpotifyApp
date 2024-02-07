@@ -1,7 +1,6 @@
 "use client"
 // components/SearchScreen.js
 
-import axios from 'axios';
 import { AudioWaveform, Drum, ListPlus, Mic2, Music } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
@@ -25,8 +24,6 @@ const SearchScreen = () => {
     const [artistList, setArtistList] = useState([]);
     const [selectedArtists, setSelectedArtists] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);
-
-    const genreOptions = genres.map(genre => ({ value: genre, label: genre }));
     
     const handleGenreChange = (selectedOptions) => {
         if (selectedOptions.length <= 5) {
@@ -50,19 +47,14 @@ const SearchScreen = () => {
 
     useEffect(() => {
         if (artist == '' || artist?.length < 3 || selectedArtists.length >= 5) { setArtistList([]); return; }
-        axios.get(`https://api.spotify.com/v1/search?q=${artist}&type=artist&limit=3`, {headers:{"Authorization": "Bearer "+localStorage.getItem('spotifyAccessToken')}})
-        .then(res => {
-            console.log("Artist", res.data);
-            setArtistList(res.data.artists.items);
-        })
-        .catch(err => console.log(err));
+        fetchArtists(artist);
     }, [artist]);
 
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage.getItem('spotifyUserName') != null) {
             setLogged(true)
         }
-    }, [])
+    }, [window, localStorage.getItem('spotifyUserName')])
 
     useEffect(() => {
         // Fetch genres from the API when the component mounts
@@ -71,21 +63,40 @@ const SearchScreen = () => {
     }, logged);
 
 
+    const fetchArtists = async (artist) => {
+        try {
+            const requestBody = {
+                feature: 'getArtistByName',
+                option: artist
+            };
+            // Call your serverless function using fetch
+            const response = await fetch('/api/schelas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+            
+            if(response.ok){
+                const data = await response.json();
+                setArtistList(data.data);
+            }
+        } catch (error) {
+            console.error('Error fetching genres:', error);
+        }
+    }
     const fetchGenres = async () => {
         console.log('> Fetching genres')
-        const accessToken = localStorage.getItem('spotifyAccessToken');
-        const refreshToken = localStorage.getItem('spotifyRefreshToken');
-
         // Ensure that the access token is available
-        if (!accessToken) {
-            console.error('Access token not available. Please authenticate with Spotify.');
+        const userName = localStorage.getItem('spotifyUserName')
+        if (!userName) {
+            console.error('User not logged in. Please authenticate with Spotify.');
             return;
         }
         try {
             const requestBody = {
-                feature: 'genres',
-                access_token: accessToken,
-                refresh_token: refreshToken
+                feature: 'genres'
             };
             // Call your serverless function using fetch
             const response = await fetch('/api/schelas', {
@@ -107,12 +118,11 @@ const SearchScreen = () => {
         setShowLoader(true)
         try {
             // Fetch the access token from localStorage
-            const accessToken = localStorage.getItem('spotifyAccessToken');
-            const refreshToken = localStorage.getItem('spotifyRefreshToken');
+            const userName = localStorage.getItem('spotifyUserName');
 
             // Ensure that the access token is available
-            if (!accessToken) {
-                console.error('Access token not available. Please authenticate with Spotify.');
+            if (!userName) {
+                console.error('User not logged in. Please authenticate with Spotify.');
                 return;
             }
 
@@ -126,9 +136,7 @@ const SearchScreen = () => {
                 option: getTabOption(selectedTab),
                 value: finalValue,
                 bpm: bpm,
-                quantity: numberOfMusics,
-                access_token: accessToken, // Include the access token in the request body
-                refresh_token: refreshToken, // Include the access token in the request body
+                quantity: numberOfMusics
                 // Add more fields as needed
             };
             // Call your serverless function using fetch
@@ -220,7 +228,7 @@ const SearchScreen = () => {
                             isMulti
                             name="genres"
                             placeholder="Selecione os gêneros..."
-                            options={genreOptions}
+                            options={genres}
                             classNames={{
                                 control: () => "bg-black rounded-lg hover:cursor-pointer text-white max-w-xl",
                                 placeholder: () => "text-white pl-3 py-0.5",
@@ -291,7 +299,9 @@ const SearchScreen = () => {
                         <input
                             type="number"
                             value={numberOfMusics}
-                            onChange={(e) => setNumberOfMusics(e.target.value)}
+                            min={1}
+                            max={100}
+                            onChange={(e) => e.target.value >= 1 && e.target.value <= 100 ? setNumberOfMusics(e.target.value): setNumberOfMusics(20)}
                             className="mb-4 p-2 max-w-xl w-full rounded-md text-white bg-black"
                         />
                         {/* Button for generating playlist */}

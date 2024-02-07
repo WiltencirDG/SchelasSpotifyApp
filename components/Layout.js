@@ -2,11 +2,11 @@
 import Header from './Header';
 const Layout = ({ children }) => {
   return (
-    <div className="bg-primary h-screen min-h-screen">
+    <div className="bg-primary h-full min-h-screen">
       {/* Global Header with logo */}
       <Header />
       {/* Content */}
-      <div className="rounded-lg p-6 w-screen flex flex-col items-center justify-center">{children}</div>
+      <div className="rounded-lg p-6 w-full flex flex-col items-center justify-center">{children}</div>
     </div>
   );
 };
